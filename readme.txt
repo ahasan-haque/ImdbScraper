@@ -1,0 +1,2 @@
+sudo apt-get install libxml2-dev libxslt-dev libssl-dev
+pip install Scrapy
