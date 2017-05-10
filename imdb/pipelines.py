@@ -7,11 +7,14 @@
 
 from scrapy.exporters import CsvItemExporter
 
+from imdb.utils.contentpath import export_order
+
 
 class ImdbPipeline(object):
-    def open_spider(self,spider):
+    def open_spider(self, spider):
         self.file = open("data.csv", 'wb')
         self.exporter = CsvItemExporter(self.file)
+        self.exporter.fields_to_export = export_order
         self.exporter.start_exporting()
 
     def process_item(self, item, spider):

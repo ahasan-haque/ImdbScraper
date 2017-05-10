@@ -6,6 +6,7 @@
 # http://doc.scrapy.org/en/latest/topics/items.html
 
 import scrapy
+import re
 
 from scrapy.loader.processors import Join, MapCompose, TakeFirst, Compose
 from w3lib.html import remove_tags
@@ -35,7 +36,7 @@ class ImdbItem(scrapy.Item):
     #other_awards = scrapy.Field()
     #nominations = scrapy.Field()
     storyline = scrapy.Field(
-        output_processor=TakeFirst(),
+        output_processor= Join(),
         input_processor = MapCompose(unicode.strip)
     )
     tagline = scrapy.Field(
@@ -60,6 +61,9 @@ class ImdbItem(scrapy.Item):
     )
     color = scrapy.Field(output_processor=TakeFirst())
     production_company = scrapy.Field(
-        output_processor=Join()
+        output_processor=Join('|')
     )
-    runtime = scrapy.Field(output_processor=TakeFirst())
+    runtime = scrapy.Field(
+        input_processor = MapCompose(lambda x: re.findall(r'\d+', x)[0]),
+        output_processor=TakeFirst()
+    )
