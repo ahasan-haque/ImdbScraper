@@ -9,9 +9,13 @@ class IMDBSpider(scrapy.Spider):
     name = "imdb"
     start_urls = ["http://www.imdb.com/chart/top"]
 
+    def __init__(self, min_votes = 1000, *args, **kwargs):
+        super(IMDBSpider, self).__init__(*args, **kwargs)
+        self.min_votes = int(min_votes)
+
     def parse(self, response):
         for genre_page in response.xpath('//li[@class = "subnav_item_main"]/a/@href').extract():
-            genre_page = re.sub(r'(num_votes=)\d+', '\g<1>100000', genre_page)
+            genre_page = re.sub(r'(num_votes=)\d+', '\g<1>{}'.format(self.min_votes), genre_page)
             yield scrapy.Request(response.urljoin(genre_page), callback=self.parse_attributes)
 
     def parse_attributes(self, response):
