@@ -1,2 +1,34 @@
+
 # ImdbScraper
-This is a scrapy project to scrap movie data from www.imdb.com 
+
+This is a scrapy project to scrap movies' informations from www.imdb.com and store them into a csv file.  
+
+### Installations
+
+Before running this project, user needs to make sure [scrapy](https://scrapy.org/) is installed. It can be installed with `pip` like below:
+
+```
+pip install Scrapy
+```
+
+### Usage
+
+First, clone the project and go to the project directory. 
+
+```
+git clone https://github.com/Ahsanul08/ImdbScraper.git
+cd ImdbScraper
+```
+
+And run the crawler with:
+
+```
+scrapy crawl imdb 
+```
+
+This will fetch all movies's information which has minimum of 1000 votes on IMDB. You can however change this value passing an additional parameter. Like below: 
+
+```
+scrapy crawl imdb -a min_votes=<your_preferred_no> 
+ 
+```
