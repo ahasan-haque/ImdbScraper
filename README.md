@@ -30,7 +30,6 @@ This will fetch all movies's information which has minimum of 1000 votes on IMDB
 
 ```
 scrapy crawl imdb -a min_votes=<your_preferred_no> 
- 
 ```
 
 ### Licence 
